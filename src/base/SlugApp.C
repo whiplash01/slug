@@ -3,6 +3,13 @@
 #include "AppFactory.h"
 #include "ModulesApp.h"
 
+#include "CompressibleReynoldsPressure.h"
+#include "ReynoldsIdealGas.h"
+#include "ReynoldsMeanVelocity.h"
+#include "ReynoldsMassFlow.h"
+#include "RadialBearingH.h"
+#include "AlphaBetaH.h"
+
 template<>
 InputParameters validParams<SlugApp>()
 {
@@ -44,6 +51,12 @@ extern "C" void SlugApp__registerObjects(Factory & factory) { SlugApp::registerO
 void
 SlugApp::registerObjects(Factory & factory)
 {
+  registerKernel(CompressibleReynoldsPressure);
+  registerAux(ReynoldsMeanVelocity);
+  registerAux(ReynoldsMassFlow);
+  registerAux(AlphaBetaH);
+  registerMaterial(ReynoldsIdealGas);
+  registerAux(RadialBearingH);
 }
 
 // External entry point for dynamic syntax association
