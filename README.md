@@ -1,6 +1,6 @@
-Stork
+Slug
 =====
 
-"Fork Stork" to create a new MOOSE-based application.
+Slug is a MOOSE based finite element solver for lubrication films.
 
-For more information see: [http://mooseframework.org/create-an-app/](http://mooseframework.org/create-an-app/)
+For more on the MOOSE Framework see: [http://mooseframework.org/](http://mooseframework.org/)
