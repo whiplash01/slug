@@ -39,12 +39,12 @@
     family = MONOMIAL
   [../]
 
-  [./mass_x]
+  [./m_dot_x]
     order = CONSTANT
     family = MONOMIAL
   [../]
 
-  [./mass_y]
+  [./m_dot_y]
     order = CONSTANT
     family = MONOMIAL
   [../]
@@ -87,23 +87,37 @@
     h = h
   [../]
 
-  [./mass_x]
+  [./m_dot_x]
     type = ReynoldsMassFlow
-    variable = mass_x
+    variable = m_dot_x
     component = 0
     vel_surface = '44.707 0 0'
     p = p
     h = h
   [../]
 
-  [./mass_y]
+  [./m_dot_y]
     type = ReynoldsMassFlow
-    variable = mass_y
+    variable = m_dot_y
     component = 1
     vel_surface = '44.707 0 0'
     p = p
     h = h
   [../]
+[]
+
+[Postprocessors]
+  [./force]
+    type = ElementIntegralVariablePostprocessor
+    variable = p
+  [../]
+  [./massFlow]
+    type = ReynoldsMassFlowIntegral
+    #variable = m_dot_x
+    cross_film_m_dot_x = m_dot_x
+    cross_film_m_dot_y = m_dot_y
+    boundary = 'left right top bottom'
+  []
 []
 
 [BCs]
@@ -135,7 +149,7 @@
   type = Steady
   l_max_its = 25
   nl_max_its = 100
-  nl_rel_step_tol = 5e-4
+  nl_rel_step_tol = 1e-4
   #nl_rel_tol = 1e-12
   l_tol = 1e-15
 []

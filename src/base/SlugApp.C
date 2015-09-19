@@ -27,6 +27,7 @@
 #include "ReynoldsMassFlow.h"
 #include "RadialBearingH.h"
 #include "AlphaBetaH.h"
+#include "ReynoldsMassFlowIntegral.h"
 
 template<>
 InputParameters validParams<SlugApp>()
@@ -75,6 +76,7 @@ SlugApp::registerObjects(Factory & factory)
   registerAux(AlphaBetaH);
   registerMaterial(ReynoldsIdealGas);
   registerAux(RadialBearingH);
+  registerPostprocessor(ReynoldsMassFlowIntegral);
 }
 
 // External entry point for dynamic syntax association
