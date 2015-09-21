@@ -1,0 +1,77 @@
+<html>
+<head>
+  <script type="text/javascript"
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+<body>
+<h1>Slug: A compressible Reynolds equation solver</h1>
+  <p>
+    Slug is a finite element solver for the compressible Reynolds equation which runs on the 
+    <a href="http://www.mooseframework.org">Moose Framework.</a>
+  </p>
+  <p>
+    The compressible Reynolds equation: 
+    $$ \begin{equation} 12 \mu \frac \partial {\partial t} (ph) + 6 \mu \nabla \centerdot(ph\vec V) - \nabla \centerdot (h^3 p\nabla p) = 0 \end{equation}$$
+  </p>
+  <p>\(\mu\) is the fluid dynamic viscosity<br>
+     \(p\) is the pressure field defined on the 2 dimensional lubrication film domain<br>
+     \(h\) is the film thickness, which may vary over the domain<br>
+     \(\vec V\) is the relative velocity of the upper and lower bearing surfaces
+  </p>
+  <p>
+    In steady state, the time derivative term is neglected:
+    $$ \begin{equation} \label{eq:sscr}6 \mu \nabla \centerdot(ph\vec V) - \nabla \centerdot (h^3 p\nabla p) = 0 \end{equation}$$
+   
+    Expansion of \(\eqref{eq:sscr}\) yields:
+    
+    $$
+      \begin{equation} 6\mu (\vec V \centerdot \nabla (ph) + ph \nabla \centerdot \vec V) - [\nabla p \centerdot \nabla(h^3 p) +h^3 p {\nabla}^2 p] = 0\end{equation}
+    $$
+
+    Note that because \(\vec V\) is the relative velocity between two rigid bodies moving parallel to one and other, \(\nabla \centerdot \vec V = 0\).  Further expansion yields:
+
+   $$\begin{equation} \label{eq:preweak} 6 \mu \vec V \centerdot (p \nabla h + h \nabla p) - \nabla p \centerdot (h^3 \nabla p + 3 p h^2 \nabla h) - h^3 p {\nabla}^2p = 0 \end{equation}$$
+
+  The weak form of \(\eqref{eq:preweak}\) is obtained by multiplying by a test function, \(\psi\) and integrating over the domain, \(\Omega\)
+  
+  $$ \begin{equation} \label{eq:weak_w_laplacian}
+     \int_\Omega \psi[6 \mu \vec V \centerdot (p \nabla h + h \nabla p) - \nabla p \centerdot (h^3 \nabla p + 3 p h^2 \nabla h)] d\Omega
+     -\int_\Omega \psi [ h^3 p {\nabla}^2 p ]d\Omega = 0
+     \end{equation}
+  $$
+
+  The Laplician operator in the second term of \(\eqref{eq:weak_w_laplacian}\) is broken down using Green's first identity:
+  $$ \begin{equation}
+      \int_\Omega \psi[6 \mu \vec V \centerdot (p \nabla h + h \nabla p) - \nabla p \centerdot (h^3 \nabla p + 3 p h^2 \nabla h)] d\Omega
+      +\int_\Omega \nabla (\psi h^3 p) \centerdot \nabla p \, d\Omega
+      -\oint_\Gamma \psi h^3 p \nabla p \centerdot \hat n \, d\Gamma = 0
+     \end{equation}
+  $$
+  
+  Further expansion yeilds the steady state compressible Reynolds equation in a form enterable into computeQpResiduals of a Moose kernel:
+  $$ \begin{equation}
+    R = \int_\Omega [ \psi 6 \mu \vec V \centerdot [p \nabla h + h \nabla p] 
+    - \psi \nabla p \centerdot (h^3 \nabla p + 3 p h^2 \nabla h)
+    + \nabla p \centerdot (\psi h^3 \nabla p + \psi p 3 h^2 \nabla h + h^3 p \nabla \psi) \,] \, d\Omega
+    
+  \end{equation}$$
+
+  At a given quadrature point, the deravitive of the residual contribution is:
+  $$ \begin{equation}
+    \frac {\partial R} {\partial p} = \psi 6 \mu \vec V \centerdot [\phi \nabla h + h \nabla \phi]
+    - \psi \nabla p \centerdot [h^3 \nabla \phi + \phi 3 h^2 \nabla h]
+     - \psi \nabla \phi \centerdot [h^3 \nabla p + 3 p h^2 \nabla h] \\
+    + \nabla \phi \centerdot [\psi h^3 \nabla p + \psi p 3 h^2 \nabla h + h^3 p \nabla \psi]
+    +\nabla p \centerdot [\psi h^3 \nabla \phi +\psi \phi 3 h^2 \nabla h + h^3 \phi \nabla \psi]
+    \end{equation}
+  $$
+  Where \(\phi\) is the shape function.
+  </p>
+</body>
+</html>
