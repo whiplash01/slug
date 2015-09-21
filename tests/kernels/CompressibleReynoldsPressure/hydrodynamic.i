@@ -154,7 +154,8 @@
   l_tol = 1e-15
 []
 
-[Outputs] 
+[Outputs]
+  execute_on = 'timestep_end'
   [./console] 
     type = Console
   [../]
