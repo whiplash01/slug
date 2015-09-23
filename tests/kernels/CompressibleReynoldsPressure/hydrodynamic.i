@@ -161,7 +161,7 @@
   [../]
   [./exodus]
     type = Exodus
-    execute_on = 'initial nonlinear'
+    #execute_on = 'initial nonlinear'
     elemental_as_nodal = true
   [../]
 []
