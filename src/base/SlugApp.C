@@ -28,6 +28,8 @@
 #include "RadialBearingH.h"
 #include "AlphaBetaH.h"
 #include "ReynoldsMassFlowIntegral.h"
+#include "Node1.h"
+#include "PressureMomentPointDirection.h"
 
 template<>
 InputParameters validParams<SlugApp>()
@@ -77,6 +79,8 @@ SlugApp::registerObjects(Factory & factory)
   registerMaterial(ReynoldsIdealGas);
   registerAux(RadialBearingH);
   registerPostprocessor(ReynoldsMassFlowIntegral);
+  registerKernel(Node1);
+  registerPostprocessor(PressureMomentPointDirection);
 }
 
 // External entry point for dynamic syntax association
