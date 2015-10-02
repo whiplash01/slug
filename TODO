@@ -1,0 +1,50 @@
+*Viscous force postprocessors
+  
+  Currently post processors exist that calculate mass flow,
+  and net force and moments due to the pressure of the film.
+  The net viscous force and moment are also of interest.
+  Write a postprocessor to do this.
+
+*Numerical stabilization
+
+   The compressible Reynolds equation can have eliptic or
+   hyperbolic characteristics, depending on the situation
+   on the situation. Small gaps, with lots of velocity 
+   seem to make the simulation blow up.  Moose has support
+   for Discontinous Galerkin, DG. That's good for the hyperbolic
+   situation, but for when the situation is more eliptic, the
+   DG implementation will need stabilization via the Interior
+   Penalty Method.
+
+
+*Time kernels
+
+  Only steady state is supported currently.  Implement time 
+  derivative kernel for Compressible Reynolds Eqn.
+
+*Air distribution
+
+  The air distribution system could play an important role in 
+  the both the static and dynamic performance of you air bearing
+  design.  Be it long slender holes from a plenum to the film,
+  or hoses coming from air control solenoids on an active film
+  stability control system.  A first step here is to create a
+  kernels for 1D compressible flow.
+
+  Make gui and Moose Actions for specification of air distribution
+  system to minimize input file insanity.
+
+*Suspension modeling
+
+  Implement scalar kernels to model the mass and moment of 
+  inertia of the pod as well as the masses, springs, and a
+  dampers of the suspension system.
+
+  Make gui and Moose Actions ... cuz this could get messy 
+  in the input file.
+
+*Dynamic stiffness and damping coefficient extraction
+
+  Two possible ways: 
+  - Formulate compressible Reynolds Eqn as an eigen problem.
+  - Brute force, time domain
