@@ -22,8 +22,8 @@ template<>
 InputParameters validParams<ReynoldsMeanVelocity>()
 {
   InputParameters params = validParams<AuxKernel>();
-  params.addParam<Real>("component", "velocity component");
-  params.addParam<RealVectorValue>("vel_surface","surface velocity");
+  params.addRequiredParam<Real>("component", "velocity component");
+  params.addRequiredParam<RealVectorValue>("vel_surface","surface velocity");
   params.addRequiredCoupledVar("p","pressure");
   params.addRequiredCoupledVar("h","film thickness");
   return params;
