@@ -1,0 +1,7 @@
+[Tests]
+  [./test]
+    type = 'Exodiff'
+    input = 'shearStress.i'
+    exodiff = 'shearStress_out.e'
+  [../]
+[]

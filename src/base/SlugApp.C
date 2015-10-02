@@ -30,6 +30,7 @@
 #include "ReynoldsMassFlowIntegral.h"
 #include "Node1.h"
 #include "PressureMomentPointDirection.h"
+#include "ReynoldsShearStress.h"
 
 template<>
 InputParameters validParams<SlugApp>()
@@ -81,6 +82,7 @@ SlugApp::registerObjects(Factory & factory)
   registerPostprocessor(ReynoldsMassFlowIntegral);
   registerKernel(Node1);
   registerPostprocessor(PressureMomentPointDirection);
+  registerAux(ReynoldsShearStress);
 }
 
 // External entry point for dynamic syntax association
