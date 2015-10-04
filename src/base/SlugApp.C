@@ -31,6 +31,7 @@
 #include "Node1.h"
 #include "PressureMomentPointDirection.h"
 #include "ReynoldsShearStress.h"
+#include "ReynoldsShearMoment.h"
 
 template<>
 InputParameters validParams<SlugApp>()
@@ -83,6 +84,7 @@ SlugApp::registerObjects(Factory & factory)
   registerKernel(Node1);
   registerPostprocessor(PressureMomentPointDirection);
   registerAux(ReynoldsShearStress);
+  registerPostprocessor(ReynoldsShearMoment);
 }
 
 // External entry point for dynamic syntax association
