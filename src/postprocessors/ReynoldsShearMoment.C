@@ -25,18 +25,19 @@ InputParameters validParams<ReynoldsShearMoment>()
   InputParameters params = validParams<ElementIntegralPostprocessor>();
   params.addRequiredCoupledVar("sigma_zx","shear stress component");
   params.addRequiredCoupledVar("sigma_zy","shear stress component");
-  params.addRequiredParam<RealVectorValue>("point","a point on the moment axis (will be projected on z = 0)");
+  params.addRequiredParam<RealVectorValue>("point","point on the axis about which the moment is to be computed");
+  params.addRequiredParam<RealVectorValue>("axis","axis about which to calculate the moment");
   return params;
 }
 
 ReynoldsShearMoment::ReynoldsShearMoment(const InputParameters & parameters) :
   ElementIntegralPostprocessor(parameters),
-  _sigma_zx(coupledValue("_sigma_zx")),
-  _sigma_zy(coupledValue("_sigma_zy")),
-  _pointIn(getParam<RealVectorValue>("point"))
-
+  _sigma_zx(coupledValue("sigma_zx")),
+  _sigma_zy(coupledValue("sigma_zy")),
+  _point(getParam<RealVectorValue>("point")),
+  _axisIn(getParam<RealVectorValue>("axis")),
+  _axis(_axisIn.unit())
 {
-  _point = RealVectorValue(_pointIn(0),_pointIn(1),0);
 }
 
 Real
@@ -44,5 +45,6 @@ ReynoldsShearMoment::computeQpIntegral()
 {
   RealVectorValue relPos = _q_point[_qp] - _point;
   RealVectorValue moment = relPos.cross(RealVectorValue(_sigma_zx[_qp],_sigma_zy[_qp],0));
-  return moment(2);
+  Real projectedMoment = moment.contract(_axis);
+  return projectedMoment;
 }
