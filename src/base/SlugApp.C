@@ -28,7 +28,6 @@
 #include "RadialBearingH.h"
 #include "AlphaBetaH.h"
 #include "ReynoldsMassFlowIntegral.h"
-#include "Node1.h"
 #include "PressureMomentPointDirection.h"
 #include "ReynoldsShearStress.h"
 #include "ReynoldsShearMoment.h"
