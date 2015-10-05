@@ -80,7 +80,6 @@ SlugApp::registerObjects(Factory & factory)
   registerMaterial(ReynoldsIdealGas);
   registerAux(RadialBearingH);
   registerPostprocessor(ReynoldsMassFlowIntegral);
-  registerKernel(Node1);
   registerPostprocessor(PressureMomentPointDirection);
   registerAux(ReynoldsShearStress);
   registerPostprocessor(ReynoldsShearMoment);
