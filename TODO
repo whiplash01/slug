@@ -1,21 +1,17 @@
-*Viscous force postprocessors
-  
-  Currently post processors exist that calculate mass flow,
-  and net force and moments due to the pressure of the film.
-  The net viscous force and moment are also of interest.
-  Write a postprocessor to do this.
-
 *Numerical stabilization
 
    The compressible Reynolds equation can have eliptic or
    hyperbolic characteristics, depending on the situation
-   on the situation. Small gaps, with lots of velocity 
+   on the situation. Small gaps, with lots of sliding velocity 
    seem to make the simulation blow up.  Moose has support
    for Discontinous Galerkin, DG. That's good for the hyperbolic
    situation, but for when the situation is more eliptic, the
    DG implementation will need stabilization via the Interior
    Penalty Method.
 
+   When the characteristic is elliptic, ei when the sliding 
+   velocity is zero, and there are shocks present, there 
+   are numerical oscillations, though the solve will converge.
 
 *Time kernels
 
@@ -28,7 +24,7 @@
   the both the static and dynamic performance of you air bearing
   design.  Be it long slender holes from a plenum to the film,
   or hoses coming from air control solenoids on an active film
-  stability control system.  A first step here is to create a
+  stability control system.  A first step here is to create
   kernels for 1D compressible flow.
 
   Make gui and Moose Actions for specification of air distribution
