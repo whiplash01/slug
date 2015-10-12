@@ -28,3 +28,7 @@ Documentation
 See slug/doc
 
 > Written with [StackEdit](https://stackedit.io/).
+
+Example Problems
+----------------
+See the external examples repository [https://github.com/adamLange/slug-examples](https://github.com/adamLange/slug-examples)

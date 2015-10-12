@@ -44,3 +44,7 @@
   Two possible ways: 
   - Formulate compressible Reynolds Eqn as an eigen problem.
   - Brute force, time domain
+
+*Make compressible reynolds pressure kernels so that it takes a vector
+ instead of a scalar for the sliding velocity input.  v must be renamed
+ to v_surface so that a single Global inputfile variable works.
