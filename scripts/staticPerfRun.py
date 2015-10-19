@@ -1,6 +1,7 @@
 import subprocess
 import numpy as np
 import os
+import pandas as pd
 
 # input file
 inputFile = 'ex01.i'
@@ -53,7 +54,7 @@ for h in h_array:
       for T in T_array:
         for v in v_array:
           for alpha in alpha_array:
-            commands.append(
+            cmd_str = (
                 'mpiexec -n {} slug-opt -i {} '.format(numProc,inputFile)
                 +'AuxKernels/h/h={} '.format(h)
                 +'BCs/inlet/value={} '.format(ps)
@@ -64,19 +65,30 @@ for h in h_array:
                 +'--show-input '
                 +'--no-color '
                 )
+            df = pd.DataFrame({
+                'h':[h],
+                'ps':[ps],
+                'pamb':[pamb],
+                'T':[T],
+                'v':[v],
+                'alpha':[alpha]
+              })
+            commands.append([cmd_str,df])
 
 # divy out the jobs (each job is a mpi job, and multiple 
 # mpi jobs can go at once.)
 
 num_commands = len(commands)
-for i in enumerate(commands):
+for i in range(num_commands):
+  cmd = commands[i][0]\
+    +'Outputs/exodus/file_base=exodus_{} '.format(i)\
+    +'Outputs/csv/file_base=postprocessor_{}'.format(i)\
+    +'>&1 > output_{}.log'.format(i)
+
   print(
-    'Beginning solve {} of {}\n'.format((i[0]+1),num_commands)
-    +'  command:{}\n'.format(i[1])
+    '\nBeginning solve {} of {}\n'.format((i+1),num_commands)
+    +cmd
   )
-  os.system(i[1]
-    +'Outputs/exodus/file_base=exodus_{} '.format(i[0])
-    +'>&1 > output_{}.log'.format(i[0])
-    )
-  
+  commands[i][1].to_csv('./indep_{}.csv'.format(i))
+  os.system(cmd)
 
