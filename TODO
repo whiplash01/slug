@@ -1,8 +1,8 @@
 *Numerical stabilization
 
    The compressible Reynolds equation can have eliptic or
-   hyperbolic characteristics, depending on the situation
-   on the situation. Small gaps, with lots of sliding velocity 
+   hyperbolic characteristics, depending on the situation.
+   Small gaps, with lots of sliding velocity 
    seem to make the simulation blow up.  Moose has support
    for Discontinous Galerkin, DG. That's good for the hyperbolic
    situation, but for when the situation is more eliptic, the
