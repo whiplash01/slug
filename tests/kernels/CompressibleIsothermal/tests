@@ -1,0 +1,15 @@
+[Tests]
+
+  [./hydrostatic]
+    type = 'Exodiff'
+    input = 'pressureDriven.i'
+    exodiff = 'pressureDriven_exodus.e'
+  [../]
+
+  [./hydrodynamic]
+    type = 'Exodiff'
+    input = 'shearDriven.i'
+    exodiff = 'shearDriven_exodus.e'
+  [../]
+
+[]

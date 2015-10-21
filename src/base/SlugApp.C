@@ -31,6 +31,8 @@
 #include "PressureMomentPointDirection.h"
 #include "ReynoldsShearStress.h"
 #include "ReynoldsShearMoment.h"
+#include "CompressibleIsothermalShearFlow.h"
+#include "CompressibleIsothermalPressureFlow.h"
 
 template<>
 InputParameters validParams<SlugApp>()
@@ -74,6 +76,8 @@ void
 SlugApp::registerObjects(Factory & factory)
 {
   registerKernel(CompressibleReynoldsPressure);
+  registerKernel(CompressibleIsothermalShearFlow);
+  registerKernel(CompressibleIsothermalPressureFlow);
   registerAux(ReynoldsMeanVelocity);
   registerAux(ReynoldsMassFlow);
   registerAux(AlphaBetaH);
