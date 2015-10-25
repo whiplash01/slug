@@ -1,26 +1,26 @@
 *Numerical stabilization
 
-   The compressible Reynolds equation can have eliptic or
+   The compressible Reynolds equation can have elliptic or
    hyperbolic characteristics, depending on the situation.
-   Small gaps, with lots of sliding velocity 
+   Small gaps, with lots of sliding velocity
    seem to make the simulation blow up.  Moose has support
-   for Discontinous Galerkin, DG. That's good for the hyperbolic
-   situation, but for when the situation is more eliptic, the
+   for Discontinuous Galerkin, DG. That's good for the hyperbolic
+   situation, but for when the situation is more elliptic, the
    DG implementation will need stabilization via the Interior
    Penalty Method.
 
-   When the characteristic is elliptic, ei when the sliding 
-   velocity is zero, and there are shocks present, there 
+   When the characteristic is elliptic, ei when the sliding
+   velocity is zero, and there are shocks present, there
    are numerical oscillations, though the solve will converge.
 
 *Time kernels
 
-  Only steady state is supported currently.  Implement time 
+  Only steady state is supported currently.  Implement time
   derivative kernel for Compressible Reynolds Eqn.
 
 *Air distribution
 
-  The air distribution system could play an important role in 
+  The air distribution system could play an important role in
   the both the static and dynamic performance of you air bearing
   design.  Be it long slender holes from a plenum to the film,
   or hoses coming from air control solenoids on an active film
@@ -32,19 +32,19 @@
 
 *Suspension modeling
 
-  Implement scalar kernels to model the mass and moment of 
+  Implement scalar kernels to model the mass and moment of
   inertia of the pod as well as the masses, springs, and a
   dampers of the suspension system.
 
-  Make gui and Moose Actions ... cuz this could get messy 
+  Make GUI and Moose Actions ... because this could get messy
   in the input file.
 
 *Dynamic stiffness and damping coefficient extraction
 
-  Two possible ways: 
+  Two possible ways:
   - Formulate compressible Reynolds Eqn as an eigen problem.
   - Brute force, time domain
 
 *Make compressible reynolds pressure kernels so that it takes a vector
  instead of a scalar for the sliding velocity input.  v must be renamed
- to v_surface so that a single Global inputfile variable works.
+ to v_surface so that a single Global input file variable works.
