@@ -32,3 +32,6 @@ See slug/doc
 Example Problems
 ----------------
 See the external examples repository [https://github.com/adamLange/slug-examples](https://github.com/adamLange/slug-examples)
+=======
+# slug
+Compressible Reynolds equation solver
